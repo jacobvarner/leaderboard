@@ -27,6 +27,10 @@ if(Meteor.isClient){
     },
     'dblclick .player': function(){
       console.log("You double clicked a .player element.");
+    },
+    'click .increment': function(){
+      var selectedPlayer = Session.get('selectedPlayer');
+      PlayersList.update(selectedPlayer, {$inc: {score: 5} });
     }
   });
 }

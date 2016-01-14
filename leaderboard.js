@@ -5,7 +5,7 @@ if(Meteor.isClient){
   Template.leaderboard.helpers({
     // Helper functions go here.
     'player': function(){
-      return PlayersList.find();
+      return PlayersList.find({}, {sort: {score: -1, name: 1} });
     },
     'playerCount': function(){
       return "Number of players: " + PlayersList.find().count();

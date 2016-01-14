@@ -24,7 +24,10 @@
 
 <template name="addPlayerForm">
 	<form>
-		<input type="text" name="playerName">
+		Name:
+		<input type="text" name="playerName">&nbsp;
+		Score:
+		<input type="number" min="0" size="30px" name="playerScore" value="0">
 		<input type="submit" value="Add Player">
 	</form>
 </template>

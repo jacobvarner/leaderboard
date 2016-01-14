@@ -42,7 +42,9 @@ if(Meteor.isClient){
     },
     'click .remove': function(){
       var selectedPlayer = Session.get('selectedPlayer');
-      PlayersList.remove(selectedPlayer);
+      if(confirm("Are you sure you want to remove " + PlayersList.findOne(selectedPlayer).name + "?")) {
+        PlayersList.remove(selectedPlayer);
+      }
     }
   });
 
@@ -50,10 +52,13 @@ if(Meteor.isClient){
     'submit form': function(event){
       event.preventDefault(); // Prevents the page from refreshing when the form is submitted
       var playerNameVar = event.target.playerName.value;
+      var playerScoreVar = event.target.playerScore.value;
       PlayersList.insert({
         name: playerNameVar,
-        score: 0
+        score: parseInt(playerScoreVar)
       });
+      var form = event.target;
+      form.reset();
     }
   });
 }

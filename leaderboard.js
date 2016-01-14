@@ -5,10 +5,12 @@ if(Meteor.isClient){
   Template.leaderboard.helpers({
     // Helper functions go here.
     'player': function(){
-      return PlayersList.find({}, {sort: {score: -1, name: 1} });
+      var currentUserId = Meteor.userId();
+      return PlayersList.find({createdBy: currentUserId}, {sort: {score: -1, name: 1} });
     },
     'playerCount': function(){
-      return "Number of players: " + PlayersList.find().count();
+      var currentUserId = Meteor.userId();
+      return "Number of players: " + PlayersList.find({createdBy: currentUserId}).count();
     },
     'selectedClass': function(){
       var playerId = this._id;
@@ -53,9 +55,11 @@ if(Meteor.isClient){
       event.preventDefault(); // Prevents the page from refreshing when the form is submitted
       var playerNameVar = event.target.playerName.value;
       var playerScoreVar = event.target.playerScore.value;
+      var currentUserId = Meteor.userId();
       PlayersList.insert({
         name: playerNameVar,
-        score: parseInt(playerScoreVar)
+        score: parseInt(playerScoreVar),
+        createdBy: currentUserId
       });
       var form = event.target;
       form.reset();
